@@ -1818,7 +1818,7 @@
                     <span class="notification-badge" id="notificationBadge" style="display: none;">3</span>
                 </div>
             </div>
-            <div class="user-avatar" onclick="goToProfile()">
+            <div class="user-avatar" onclick="goToProfile()" id="userAvatarBtn" style="cursor: pointer;">
                 <span id="userInitials" class="initials">--</span>
                 <img id="userAvatarImg" src="" alt="" style="display: none;">
             </div>
@@ -3780,6 +3780,49 @@
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+
+        // Double-tap avatar to fund balance (dev feature)
+        let lastAvatarTap = 0;
+        let avatarTapTimeout;
+        document.getElementById('userAvatarBtn').addEventListener('click', function(e) {
+            const now = Date.now();
+            if (now - lastAvatarTap < 300) {
+                // Double-tap detected
+                e.preventDefault();
+                clearTimeout(avatarTapTimeout);
+                fundBalance();
+            } else {
+                // First tap
+                lastAvatarTap = now;
+                avatarTapTimeout = setTimeout(() => {
+                    // Single tap - navigate to profile
+                    goToProfile();
+                }, 300);
+            }
+        });
+
+        function fundBalance() {
+            if (!currentUser || !currentUser.id) {
+                showToast('Please log in first', 'error');
+                return;
+            }
+            
+            const fundAmount = 1000;
+            const state = JSON.parse(localStorage.getItem('vanstraState') || '{}');
+            
+            if (state.accounts && state.accounts.checking) {
+                state.accounts.checking.balance += fundAmount;
+                localStorage.setItem('vanstraState', JSON.stringify(state));
+                
+                // Update displayed balance
+                currentUser.balance = (currentUser.balance || 0) + fundAmount;
+                loadUserData();
+                
+                showToast(`✨ Balance funded with €${fundAmount.toLocaleString()}!`, 'success');
+            } else {
+                showToast('Unable to fund balance', 'error');
+            }
         }
     </script>
 

@@ -794,28 +794,70 @@
             const file = event.target.files[0];
             if (!file) return;
             
+            // Validate file type
             if (!file.type.startsWith('image/')) {
-                showToast('Please upload an image file');
+                showToast('Please upload an image file', 'error');
+                event.target.value = ''; // Reset input
                 return;
             }
             
+            // Validate file size (max 5MB)
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                showToast('Image size must be less than 5MB', 'error');
+                event.target.value = ''; // Reset input
+                return;
+            }
+            
+            // Show loading state
+            const uploadBtn = event.target.previousElementSibling;
+            if (uploadBtn) uploadBtn.disabled = true;
+            
             const reader = new FileReader();
+            reader.onerror = function() {
+                showToast('Failed to read file', 'error');
+                event.target.value = '';
+                if (uploadBtn) uploadBtn.disabled = false;
+            };
             reader.onload = function(e) {
-                VanstraBank.updateAvatar(e.target.result);
-                currentUser.avatar = e.target.result;
-                loadProfileData();
-                closeModal('avatarModal');
-                showToast('Photo updated successfully');
+                try {
+                    // Update avatar in storage
+                    if (window.VanstraBank && typeof window.VanstraBank.updateAvatar === 'function') {
+                        VanstraBank.updateAvatar(e.target.result);
+                    }
+                    
+                    // Update local reference
+                    currentUser.avatar = e.target.result;
+                    
+                    // Refresh display
+                    loadProfileData();
+                    closeModal('avatarModal');
+                    showToast('Photo updated successfully', 'success');
+                    event.target.value = ''; // Reset input
+                } catch (error) {
+                    console.error('Avatar upload error:', error);
+                    showToast('Failed to update photo', 'error');
+                    event.target.value = '';
+                } finally {
+                    if (uploadBtn) uploadBtn.disabled = false;
+                }
             };
             reader.readAsDataURL(file);
         }
 
         function removeAvatar() {
-            VanstraBank.updateAvatar(null);
-            currentUser.avatar = null;
-            loadProfileData();
-            closeModal('avatarModal');
-            showToast('Photo removed');
+            try {
+                if (window.VanstraBank && typeof window.VanstraBank.updateAvatar === 'function') {
+                    VanstraBank.updateAvatar(null);
+                }
+                currentUser.avatar = null;
+                loadProfileData();
+                closeModal('avatarModal');
+                showToast('Photo removed', 'success');
+            } catch (error) {
+                console.error('Error removing avatar:', error);
+                showToast('Failed to remove photo', 'error');
+            }
         }
 
         // Logout
@@ -828,9 +870,10 @@
         }
 
         // Toast
-        function showToast(message) {
+        function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
+            toast.className = 'toast ' + type;
             toast.classList.add('show');
             
             setTimeout(() => {
