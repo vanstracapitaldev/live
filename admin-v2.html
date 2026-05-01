@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Vanstra Bank</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --navy: #041225;
+            --slate: #0B2A3F;
+            --gold: #C89A3A;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F1F5F9;
+            color: #1F2937;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: var(--navy);
+            color: white;
+            z-index: 100;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .sidebar-logo img {
+            width: 36px;
+            height: 36px;
+        }
+        
+        .sidebar-logo span {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1.5rem;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+        
+        .nav-item.active {
+            background: rgba(200, 154, 58, 0.1);
+            color: var(--gold);
+            border-left-color: var(--gold);
+        }
+        
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .main-content {
+            margin-left: 260px;
+            padding: 1.5rem;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #D1FAE5;
+            color: #065F46;
+            border-radius: 9999px;
+            font-size: 13px;
+                font-weight: 500;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        
+        .stat-change {
+            font-size: 12px;
+            margin-top: 0.25rem;
+        }
+        
+        .stat-change.positive {
+            color: #10B981;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #F3F4F6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .card-body {
+            padding: 1rem 1.25rem;
+        }
+        
+        .table {
+            width: 100%;
+        }
+        
+        .table th {
+            text-align: left;
+            padding: 0.75rem;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .table td {
+            padding: 0.875rem 0.75rem;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 14px;
+        }
+        
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            color: white;
+        }
+        
+        .user-info {
+            line-height: 1.4;
+        }
+        
+        .user-name {
+            font-weight: 600;
+        }
+        
+        .user-email {
+            font-size: 12px;
+            color: #6B7280;
+        }
+        
+        .online-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 12px;
+        }
+        
+        .online-indicator.online {
+            color: #10B981;
+        }
+        
+        .online-indicator.offline {
+            color: #9CA3AF;
+        }
+        
+        .online-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        
+        .online-indicator.online .online-dot {
+            background: #10B981;
+        }
+        
+        .online-indicator.offline .online-dot {
+            background: #D1D5DB;
+        }
+        
+        .event-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+        
+        .event-item:last-child {
+            border-bottom: none;
+        }
+        
+        .event-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .event-icon.login {
+            background: #D1FAE5;
+            color: #059669;
+        }
+        
+        .event-icon.logout {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+        
+        .event-icon.transaction {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+        
+        .event-icon.user {
+            background: #F3E8FF;
+            color: #7C3AED;
+        }
+        
+        .event-icon.pin {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+        
+        .event-content {
+            flex: 1;
+        }
+        
+        .event-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .event-time {
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-top: 0.25rem;
+        }
+        
+        .chat-panel {
+            position: fixed;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 200;
+        }
+        
+        .chat-header {
+            background: var(--navy);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chat-select {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #F8F9FA;
+        }
+        
+        .chat-message {
+            max-width: 80%;
+            padding: 0.625rem 0.875rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .chat-message.user {
+            background: white;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .chat-message.admin {
+            background: var(--gold);
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 0.625rem 1rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 9999px;
+            font-size: 14px;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .chat-send {
+            width: 40px;
+            height: 40px;
+            background: var(--gold);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .chat-send svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .badge-success {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .badge-warning {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .badge-danger {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+            .main-content {
+                margin-left: 200px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <img src="logo-v.png" alt="Vanstra">
+                <span>Admin Panel</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-item active" onclick="showSection('dashboard')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                </svg>
+                Dashboard
+            </div>
+            <div class="nav-item" onclick="showSection('users')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+                Users
+            </div>
+            <div class="nav-item" onclick="showSection('transactions')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                </svg>
+                Transactions
+            </div>
+            <div class="nav-item" onclick="showSection('chat')">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                Live Chat
+            </div>
+            <div class="nav-item" onclick="logout()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Logout
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1 class="header-title">Dashboard Overview</h1>
+            <div class="header-actions">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span>System Online</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Users</div>
+                <div class="stat-value" id="totalUsers">0</div>
+                <div class="stat-change positive">+0 today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Online Now</div>
+                <div class="stat-value" id="onlineUsers">0</div>
+                <div class="stat-change positive">Active</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Balance</div>
+                <div class="stat-value" id="totalBalance">€0</div>
+                <div class="stat-change positive">All accounts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Transactions Today</div>
+                <div class="stat-value" id="todayTransactions">0</div>
+                <div class="stat-change positive">+0 vs yesterday</div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Users Table -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Users</h2>
+                    <span class="text-sm text-gray-500" id="userCount">0 users</span>
+                </div>
+                <div class="card-body" style="padding: 0;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Account</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                                <th>Last Login</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Live Activity</h2>
+                    <span class="text-sm text-gray-500">Real-time updates</span>
+                </div>
+                <div class="card-body">
+                    <div id="activityFeed">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chat Panel -->
+    <div class="chat-panel">
+        <div class="chat-header">
+            <select class="chat-select" id="chatUserSelect" onchange="loadUserChat()">
+                <option value="">Select user...</option>
+            </select>
+            <span style="font-size: 13px; color: rgba(255,255,255,0.7);">Live Support</span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div style="text-align: center; color: #9CA3AF; padding: 2rem;">
+                Select a user to view chat
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..." onkeypress="handleChatKeypress(event)">
+            <button class="chat-send" onclick="sendAdminReply()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="bank-core-v2.js"></script>
+    <script>
+        // Admin credentials (simple check)
+        const ADMIN_PASSWORD = 'admin123';
+        
+        // Check admin access
+        if (!sessionStorage.getItem('adminAuthenticated')) {
+            const password = prompt('Enter admin password:');
+            if (password !== ADMIN_PASSWORD) {
+                alert('Access denied');
+                window.location.href = 'login.html';
+            } else {
+                sessionStorage.setItem('adminAuthenticated', 'true');
+            }
+        }
+
+        let currentChatUser = null;
+        let refreshInterval;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboard();
+            startRealtimeUpdates();
+            
+            // Listen for events
+            VanstraBank.on('user_created', () => loadDashboard());
+            VanstraBank.on('user_login', () => loadDashboard());
+            VanstraBank.on('user_logout', () => loadDashboard());
+            VanstraBank.on('transaction', () => loadDashboard());
+            VanstraBank.on('pin_failed', (data) => {
+                addActivityEvent('pin', `PIN failed for user`, data.userId);
+            });
+            VanstraBank.on('chat_message', (msg) => {
+                if (currentChatUser === msg.userId) {
+                    addChatMessage(msg.message, 'user');
+                }
+            });
+        });
+
+        function loadDashboard() {
+            const users = VanstraBank.getAllUsers();
+            
+            // Update stats
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('onlineUsers').textContent = users.filter(u => u.isOnline).length;
+            document.getElementById('userCount').textContent = users.length + ' users';
+            
+            const totalBalance = users.reduce((sum, u) => sum + u.balance, 0);
+            document.getElementById('totalBalance').textContent = '€' + totalBalance.toLocaleString('de-DE', {minimumFractionDigits: 2});
+            
+            // Update users table
+            const tableBody = document.getElementById('usersTable');
+            tableBody.innerHTML = users.map(user => `
+                <tr>
+                    <td>
+                        <div class="user-cell">
+                            <div class="user-avatar">${user.fullName.split(' ').map(n => n[0]).join('')}</div>
+                            <div class="user-info">
+                                <div class="user-name">${user.fullName}</div>
+                                <div class="user-email">${user.email}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="font-family: monospace; font-size: 13px;">${user.accountNumber}</div>
+                        <div style="font-size: 12px; color: #6B7280;">${user.accountType}</div>
+                    </td>
+                    <td>
+                        <strong>€${user.balance.toLocaleString('de-DE', {minimumFractionDigits: 2})}</strong>
+                    </td>
+                    <td>
+                        <span class="online-indicator ${user.isOnline ? 'online' : 'offline'}">
+                            <span class="online-dot"></span>
+                            ${user.isOnline ? 'Online' : 'Offline'}
+                        </span>
+                    </td>
+                    <td>
+                        ${user.lastLogin ? new Date(user.lastLogin).toLocaleString('de-DE', {hour: '2-digit', minute:'2-digit', day:'numeric', month:'short'}) : 'Never'}
+                    </td>
+                </tr>
+            `).join('');
+            
+            // Update chat user select
+            const select = document.getElementById('chatUserSelect');
+            const currentValue = select.value;
+            select.innerHTML = '<option value="">Select user...</option>' + 
+                users.map(u => `<option value="${u.id}">${u.fullName}</option>`).join('');
+            select.value = currentValue;
+        }
+
+        function startRealtimeUpdates() {
+            // Poll for updates every 2 seconds
+            refreshInterval = setInterval(() => {
+                loadDashboard();
+                loadActivityFeed();
+                if (currentChatUser) {
+                    loadUserChat();
+                }
+            }, 2000);
+        }
+
+        function loadActivityFeed() {
+            const events = VanstraBank.getAdminEvents().slice(0, 10);
+            const feed = document.getElementById('activityFeed');
+            
+            feed.innerHTML = events.map(event => {
+                let iconClass = 'user';
+                let text = '';
+                
+                switch(event.event) {
+                    case 'user_created':
+                        iconClass = 'user';
+                        text = `New user registered: ${event.data.user?.fullName || 'Unknown'}`;
+                        break;
+                    case 'user_login':
+                        iconClass = 'login';
+                        text = `${event.data.user?.fullName || 'User'} logged in`;
+                        break;
+                    case 'user_logout':
+                        iconClass = 'logout';
+                        text = `User logged out`;
+                        break;
+                    case 'transaction':
+                        iconClass = 'transaction';
+                        text = `Transaction: ${event.data.transaction?.description || 'Unknown'}`;
+                        break;
+                    case 'pin_failed':
+                        iconClass = 'pin';
+                        text = `PIN authorization failed`;
+                        break;
+                    default:
+                        text = event.event;
+                }
+                
+                return `
+                    <div class="event-item">
+                        <div class="event-icon ${iconClass}">
+                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                ${getIconForEvent(event.event)}
+                            </svg>
+                        </div>
+                        <div class="event-content">
+                            <div class="event-text">${text}</div>
+                            <div class="event-time">${new Date(event.timestamp).toLocaleTimeString('de-DE')}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getIconForEvent(event) {
+            const icons = {
+                user_created: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>',
+                user_login: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>',
+                user_logout: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>',
+                transaction: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>',
+                pin_failed: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>'
+            };
+            return icons[event] || icons.user_created;
+        }
+
+        function addActivityEvent(type, text, userId) {
+            // This would add to the feed in real-time
+        }
+
+        // Chat functions
+        function loadUserChat() {
+            const userId = document.getElementById('chatUserSelect').value;
+            if (!userId) {
+                document.getElementById('chatMessages').innerHTML = `
+                    <div style="text-align: center; color: #9CA3AF; padding: 2rem;">
+                        Select a user to view chat
+                    </div>
+                `;
+                return;
+            }
+            
+            currentChatUser = userId;
+            const messages = VanstraBank.getChatMessages(userId);
+            const container = document.getElementById('chatMessages');
+            
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: #9CA3AF; padding: 2rem;">
+                        No messages yet
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = messages.map(msg => `
+                <div class="chat-message ${msg.from}">${msg.message}</div>
+            `).join('');
+            
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendAdminReply();
+            }
+        }
+
+        function sendAdminReply() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message || !currentChatUser) return;
+            
+            VanstraBank.adminReply(currentChatUser, message);
+            addChatMessage(message, 'admin');
+            input.value = '';
+        }
+
+        function addChatMessage(message, from) {
+            const container = document.getElementById('chatMessages');
+            
+            // Remove "no messages" text if present
+            if (container.children.length === 1 && container.children[0].style.textAlign === 'center') {
+                container.innerHTML = '';
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'chat-message ' + from;
+            div.textContent = message;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showSection(section) {
+            // Simple section switching
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

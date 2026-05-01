@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Frequently Asked Questions - Vanstra Capital</title>
+    <meta name="description" content="Find answers to frequently asked questions about Vanstra Capital's banking services, account opening, security features, and more.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --midnight-navy: #041225;
+            --deep-slate: #0B2A3F;
+            --gold-accent: #C89A3A;
+            --soft-white: #F7F8FA;
+            --gray: #8B96A3;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--midnight-navy);
+        }
+        
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gold-accent {
+            color: var(--gold-accent);
+        }
+        
+        .bg-gold {
+            background-color: var(--gold-accent);
+        }
+        
+        .text-navy {
+            color: var(--midnight-navy);
+        }
+        
+        .bg-navy {
+            background-color: var(--midnight-navy);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold-accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #E5E7EB;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: #F9FAFB;
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-icon.active {
+            transform: rotate(180deg);
+        }
+        
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #E5E7EB;
+            background: white;
+            color: #6B7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab.active {
+            border-color: var(--gold-accent);
+            background-color: var(--gold-accent);
+            color: white;
+        }
+        
+        .category-tab:hover {
+            border-color: var(--gold-accent);
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-primary {
+            background-color: var(--gold-accent);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(200, 154, 58, 0.3);
+        }
+        
+        .btn-secondary {
+            border: 2px solid var(--gold-accent);
+            color: var(--gold-accent);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gold-accent);
+            color: white;
+        }
+        
+        .search-box {
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--gold-accent);
+            box-shadow: 0 0 0 3px rgba(200, 154, 58, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-navy/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="resources/logo-primary.svg" alt="Vanstra Capital" class="h-10 w-auto">
+                    <span class="ml-3 text-xl font-serif font-bold text-white">Vanstra Capital</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-white hover:text-gold-accent">Home</a>
+                    <a href="products.html" class="nav-link text-white hover:text-gold-accent">Products</a>
+                    <a href="about.html" class="nav-link text-white hover:text-gold-accent">About</a>
+                    <a href="faq.html" class="nav-link text-gold-accent">FAQ</a>
+                    <a href="contact.html" class="nav-link text-white hover:text-gold-accent">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="btn-secondary px-4 py-2 rounded-lg text-sm font-medium">Login</a>
+                    <a href="signup.html" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium">Open Account</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-slate-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h1 class="text-5xl font-serif font-bold text-navy mb-6">
+                    Frequently Asked Questions
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    Find answers to common questions about Vanstra Capital's banking services, 
+                    account opening, security, and more.
+                </p>
+                
+                <!-- Search Box -->
+                <div class="max-w-2xl mx-auto mb-8">
+                    <input type="text" id="searchBox" class="search-box" placeholder="Search for answers...">
+                </div>
+                
+                <!-- Category Tabs -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="category-tab active" data-category="all">All Questions</button>
+                    <button class="category-tab" data-category="account">Account Opening</button>
+                    <button class="category-tab" data-category="security">Security</button>
+                    <button class="category-tab" data-category="products">Products</button>
+                    <button class="category-tab" data-category="transfers">Transfers</button>
+                    <button class="category-tab" data-category="fees">Fees & Rates</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Content -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="faqContainer" class="space-y-4">
+                <!-- Account Opening Questions -->
+                <div class="faq-item animate-fade-in" data-category="account">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">How do I open an account with Vanstra Capital?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Opening an account with Vanstra Capital is simple and takes less than 5 minutes. Click the "Open Account" 
+                            button, provide your email address, personal information, and upload a valid ID. We'll verify your identity 
+                            and send you account details within 24 hours.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-fade-in" data-category="account">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">What documents do I need to open an account?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            You'll need a valid government-issued photo ID (driver's license, passport, or state ID) and your Social 
+                            Security number. For business accounts, additional documentation like business formation documents and 
+                            tax ID numbers may be required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-fade-in" data-category="account">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">Is there a minimum deposit requirement?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Most of our accounts have no minimum deposit requirement to open. However, some specialized accounts 
+                            like Money Market ($2,500 minimum) and Wealth Management ($100,000 minimum) have specific requirements 
+                            to access their premium features and rates.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Security Questions -->
+                <div class="faq-item animate-fade-in" data-category="security">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">How secure is my money with Vanstra Capital?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Your deposits are FDIC insured up to $250,000 per depositor. We use 256-bit SSL encryption, 
+                            multi-factor authentication, and real-time fraud monitoring. Our systems are SOC 2 certified 
+                            and undergo regular security audits by independent firms.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-fade-in" data-category="security">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">What should I do if I suspect fraud on my account?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Contact us immediately at 1-800-VANSTRA or through your mobile app. Our fraud team is available 
+                            24/7. We'll freeze your account if necessary, investigate the suspicious activity, and work with 
+                            you to secure your account and recover any unauthorized transactions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Products Questions -->
+                <div class="faq-item animate-fade-in" data-category="products">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">What types of accounts does Vanstra Capital offer?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            We offer a comprehensive range of accounts including High-Yield Savings (4.85% APY), Premium Checking, 
+                            Money Market accounts, CDs, business banking solutions, and wealth management services. Each account 
+                            is designed to maximize your financial potential.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-fade-in" data-category="products">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">Can I access my accounts on mobile devices?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Yes! Our mobile app is available for iOS and Android devices. You can check balances, transfer funds, 
+                            deposit checks, pay bills, and access all your account features. The app includes biometric login 
+                            and real-time notifications for complete security and convenience.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Transfers Questions -->
+                <div class="faq-item animate-fade-in" data-category="transfers">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">How long do transfers take?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Internal transfers between your Vanstra Capital accounts are instant. ACH transfers to external 
+                            accounts typically take 1-2 business days. Wire transfers are same-day if initiated before 3 PM ET. 
+                            We also offer instant transfers to participating banks through our real-time payment network.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-fade-in" data-category="transfers">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">Are there limits on transfers?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Daily transfer limits vary by account type and verification status. Basic accounts have a $10,000 daily 
+                            limit, while verified premium accounts can transfer up to $100,000 per day. Higher limits are available 
+                            for business and wealth management clients. Wire transfers have separate limits.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Fees Questions -->
+                <div class="faq-item animate-fade-in" data-category="fees">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">What fees does Vanstra Capital charge?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            We pride ourselves on transparency and low fees. Most personal accounts have no monthly maintenance fees. 
+                            Our High-Yield Savings has no minimum balance requirements. ATM fees are reimbursed up to $20/month. 
+                            Wire transfers and international services have competitive fees clearly displayed before processing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-fade-in" data-category="fees">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">How is interest calculated and paid?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Interest is calculated daily and compounded monthly for most accounts. Our High-Yield Savings currently 
+                            offers 4.85% APY, with rates subject to change based on market conditions. Interest is typically credited 
+                            to your account on the last business day of each month. All rates are clearly displayed in your account dashboard.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Additional Questions -->
+                <div class="faq-item animate-fade-in" data-category="account">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">Can I have multiple accounts?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Yes! You can open multiple accounts including savings, checking, and investment accounts. Many customers 
+                            maintain both a High-Yield Savings for emergency funds and a Premium Checking for daily transactions. 
+                            You can easily transfer funds between your accounts instantly and at no cost.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item animate-fade-in" data-category="security">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-navy">How do I set up two-factor authentication?</h3>
+                        </div>
+                        <svg class="faq-icon w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600">
+                            Two-factor authentication can be set up in your account settings under "Security." You can choose SMS 
+                            verification, authenticator app (Google Authenticator, Authy), or biometric authentication if your device 
+                            supports it. We strongly recommend enabling 2FA for maximum account security.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Can't Find Answer -->
+            <div class="text-center mt-16 animate-fade-in">
+                <div class="bg-gray-50 rounded-2xl p-8 max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-semibold text-navy mb-4">Can't find what you're looking for?</h3>
+                    <p class="text-gray-600 mb-6">
+                        Our customer support team is here to help. Contact us directly for personalized assistance 
+                        with your specific questions or concerns.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="contact.html" class="btn-primary px-6 py-3 rounded-lg font-semibold">
+                            Contact Support
+                        </a>
+                        <a href="support.html" class="btn-secondary px-6 py-3 rounded-lg font-semibold">
+                            Help Center
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <img src="resources/logo-primary.svg" alt="Vanstra Capital" class="h-10 w-auto">
+                        <span class="ml-3 text-xl font-serif font-bold">Vanstra Capital</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        Premium online banking and wealth management services designed for the modern financial landscape. 
+                        Security, innovation, and excellence in every transaction.
+                    </p>
+                    <div class="text-sm text-gray-400">
+                        <p>© 2025 Vanstra Capital. All rights reserved.</p>
+                        <p class="mt-2">Member FDIC. Equal Housing Lender.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Products</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="products.html" class="hover:text-white transition-colors">Personal Banking</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">Business Accounts</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">Wealth Management</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">Investment Services</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="support.html" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFAQ();
+            initializeSearch();
+            initializeCategoryTabs();
+            initializeScrollAnimations();
+        });
+        
+        // Initialize FAQ functionality
+        function initializeFAQ() {
+            // Auto-open first FAQ item
+            const firstFAQ = document.querySelector('.faq-item');
+            if (firstFAQ) {
+                toggleFAQ(firstFAQ.querySelector('.faq-question'));
+            }
+        }
+        
+        // Toggle FAQ item
+        function toggleFAQ(questionElement) {
+            const faqItem = questionElement.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = questionElement.querySelector('.faq-icon');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== faqItem) {
+                    item.querySelector('.faq-answer').classList.remove('active');
+                    item.querySelector('.faq-icon').classList.remove('active');
+                }
+            });
+            
+            // Toggle current item
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+        
+        // Initialize search functionality
+        function initializeSearch() {
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const faqItems = document.querySelectorAll('.faq-item');
+                
+                faqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                    
+                    if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = searchTerm === '' ? 'block' : 'none';
+                    }
+                });
+            });
+        }
+        
+        // Initialize category tabs
+        function initializeCategoryTabs() {
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter FAQ items
+                    const faqItems = document.querySelectorAll('.faq-item');
+                    faqItems.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                    
+                    // Clear search
+                    document.getElementById('searchBox').value = '';
+                });
+            });
+        }
+        
+        // Initialize scroll animations
+        function initializeScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+    </script>
+    
+    <script src="main.js"></script>
+</body>
+</html>

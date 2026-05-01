@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Vanstra Capital</title>
+    <meta name="description" content="Read Vanstra Capital's terms of service. Understand the terms and conditions for using our premium banking services and digital platforms.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --midnight-navy: #041225;
+            --deep-slate: #0B2A3F;
+            --gold-accent: #C89A3A;
+            --soft-white: #F7F8FA;
+            --gray: #8B96A3;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--midnight-navy);
+        }
+        
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gold-accent {
+            color: var(--gold-accent);
+        }
+        
+        .bg-gold {
+            background-color: var(--gold-accent);
+        }
+        
+        .text-navy {
+            color: var(--midnight-navy);
+        }
+        
+        .bg-navy {
+            background-color: var(--midnight-navy);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold-accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .animate-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .btn-primary {
+            background-color: var(--gold-accent);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(200, 154, 58, 0.3);
+        }
+        
+        .btn-secondary {
+            border: 2px solid var(--gold-accent);
+            color: var(--gold-accent);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--gold-accent);
+            color: white;
+        }
+        
+        .terms-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .terms-nav {
+            position: sticky;
+            top: 100px;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .terms-nav a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .terms-nav a:hover,
+        .terms-nav a.active {
+            color: var(--gold-accent);
+        }
+        
+        .numbered-list {
+            counter-reset: section;
+        }
+        
+        .numbered-list li {
+            counter-increment: section;
+            margin-bottom: 1rem;
+        }
+        
+        .numbered-list li::before {
+            content: counter(section) ". ";
+            font-weight: 600;
+            color: var(--gold-accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-navy/90 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <img src="resources/logo-primary.svg" alt="Vanstra Capital" class="h-10 w-auto">
+                    <span class="ml-3 text-xl font-serif font-bold text-white">Vanstra Capital</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-white hover:text-gold-accent">Home</a>
+                    <a href="products.html" class="nav-link text-white hover:text-gold-accent">Products</a>
+                    <a href="about.html" class="nav-link text-white hover:text-gold-accent">About</a>
+                    <a href="faq.html" class="nav-link text-white hover:text-gold-accent">FAQ</a>
+                    <a href="contact.html" class="nav-link text-white hover:text-gold-accent">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="btn-secondary px-4 py-2 rounded-lg text-sm font-medium">Login</a>
+                    <a href="signup.html" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium">Open Account</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-slate-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-fade-in">
+                <h1 class="text-5xl font-serif font-bold text-navy mb-6">
+                    Terms of Service
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    Please read these Terms of Service carefully before using Vanstra Capital's banking services, 
+                    website, mobile applications, and other digital platforms.
+                </p>
+                <p class="text-sm text-gray-500">
+                    Last updated: November 17, 2025
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms Content -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Navigation Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="terms-nav animate-fade-in">
+                        <h3 class="font-semibold text-navy mb-4">Table of Contents</h3>
+                        <nav class="space-y-1">
+                            <a href="#acceptance" class="active">Acceptance of Terms</a>
+                            <a href="#services">Services Description</a>
+                            <a href="#eligibility">Eligibility</a>
+                            <a href="#account-registration">Account Registration</a>
+                            <a href="#fees">Fees and Charges</a>
+                            <a href="#prohibited">Prohibited Activities</a>
+                            <a href="#intellectual-property">Intellectual Property</a>
+                            <a href="#disclaimer">Disclaimer of Warranties</a>
+                            <a href="#limitation">Limitation of Liability</a>
+                            <a href="#indemnification">Indemnification</a>
+                            <a href="#termination">Termination</a>
+                            <a href="#governing-law">Governing Law</a>
+                            <a href="#changes">Changes to Terms</a>
+                            <a href="#contact">Contact Information</a>
+                        </nav>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="lg:col-span-3">
+                    <div class="space-y-8">
+                        <!-- Acceptance -->
+                        <div id="acceptance" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Acceptance of Terms</h2>
+                            <p class="text-gray-600 mb-4">
+                                By accessing and using Vanstra Capital's services, including our website, mobile applications, 
+                                and banking platforms, you agree to be bound by these Terms of Service. If you do not agree 
+                                to these terms, you must not access or use our services.
+                            </p>
+                            <p class="text-gray-600 mb-4">
+                                These Terms of Service constitute a legally binding agreement between you and Vanstra Capital. 
+                                By creating an account, using any of our services, or otherwise indicating your acceptance, 
+                                you agree to these terms and conditions.
+                            </p>
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-semibold text-blue-900 mb-1">Age Requirement</h4>
+                                        <p class="text-blue-800 text-sm">You must be at least 18 years old to use our services. By using our services, you represent and warrant that you meet this age requirement.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Services Description -->
+                        <div id="services" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Services Description</h2>
+                            <p class="text-gray-600 mb-4">
+                                Vanstra Capital provides premium online banking and wealth management services, including but not limited to:
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <h4 class="font-semibold text-navy mb-3">Banking Services</h4>
+                                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                                        <li>High-yield savings accounts</li>
+                                        <li>Premium checking accounts</li>
+                                        <li>Money market accounts</li>
+                                        <li>Certificates of deposit</li>
+                                        <li>Debit cards and ATM access</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-navy mb-3">Digital Services</h4>
+                                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                                        <li>Online banking platform</li>
+                                        <li>Mobile banking applications</li>
+                                        <li>Bill payment services</li>
+                                        <li>Money transfer services</li>
+                                        <li>Account management tools</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-600">
+                                The specific services available to you may depend on your account type, location, and other factors. 
+                                We reserve the right to modify, suspend, or discontinue any service at any time with appropriate notice.
+                            </p>
+                        </div>
+
+                        <!-- Eligibility -->
+                        <div id="eligibility" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Eligibility</h2>
+                            <p class="text-gray-600 mb-4">
+                                To use Vanstra Capital's services, you must meet the following eligibility requirements:
+                            </p>
+                            
+                            <ol class="numbered-list text-gray-600 mb-6">
+                                <li>Be at least 18 years of age or older</li>
+                                <li>Be a legal resident of the United States</li>
+                                <li>Have a valid Social Security number or Tax Identification Number</li>
+                                <li>Provide valid identification and contact information</li>
+                                <li>Meet our credit and risk assessment criteria</li>
+                                <li>Not be listed on any prohibited persons or sanctions lists</li>
+                                <li>Not have previously had an account terminated by Vanstra Capital</li>
+                            </ol>
+                            
+                            <p class="text-gray-600">
+                                We reserve the right to refuse service to anyone for any reason not prohibited by law. 
+                                Additional eligibility requirements may apply to specific services or account types.
+                            </p>
+                        </div>
+
+                        <!-- Account Registration -->
+                        <div id="account-registration" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Account Registration</h2>
+                            <p class="text-gray-600 mb-4">
+                                To access our services, you must create an account and provide accurate, complete, and current information. 
+                                You agree to:
+                            </p>
+                            
+                            <div class="space-y-4 mb-6">
+                                <div class="flex items-start">
+                                    <div class="w-6 h-6 bg-gold rounded-full flex items-center justify-center mr-4 mt-1">
+                                        <span class="text-white text-xs font-bold">1</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-navy mb-2">Provide Accurate Information</h4>
+                                        <p class="text-gray-600">Ensure all information provided during registration and throughout your use of our services is accurate, complete, and up-to-date.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-6 h-6 bg-gold rounded-full flex items-center justify-center mr-4 mt-1">
+                                        <span class="text-white text-xs font-bold">2</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-navy mb-2">Maintain Account Security</h4>
+                                        <p class="text-gray-600">Keep your login credentials confidential and notify us immediately of any unauthorized access or security breach.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-6 h-6 bg-gold rounded-full flex items-center justify-center mr-4 mt-1">
+                                        <span class="text-white text-xs font-bold">3</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-navy mb-2">Update Information</h4>
+                                        <p class="text-gray-600">Promptly update your account information to keep it accurate and complete, including changes to your contact information.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-red-600 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-semibold text-red-900 mb-1">Account Security</h4>
+                                        <p class="text-red-800 text-sm">You are responsible for all activities that occur under your account. We are not liable for any loss or damage arising from your failure to comply with security obligations.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fees and Charges -->
+                        <div id="fees" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Fees and Charges</h2>
+                            <p class="text-gray-600 mb-4">
+                                Vanstra Capital charges fees for certain services as outlined in our fee schedule. By using our services, 
+                                you agree to pay all applicable fees and charges:
+                            </p>
+                            
+                            <h3 class="text-lg font-semibold text-navy mb-3">Fee Structure</h3>
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2 ml-4">
+                                <li>Monthly maintenance fees (where applicable)</li>
+                                <li>Transaction fees for certain types of transfers</li>
+                                <li>ATM fees for out-of-network transactions</li>
+                                <li>Wire transfer fees</li>
+                                <li>Stop payment and other service fees</li>
+                                <li>Overdraft and insufficient funds fees</li>
+                            </ul>
+                            
+                            <h3 class="text-lg font-semibold text-navy mb-3">Fee Changes</h3>
+                            <p class="text-gray-600 mb-4">
+                                We may change our fee structure from time to time with appropriate notice as required by law. 
+                                Fee changes will be communicated through:
+                            </p>
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-1 ml-4">
+                                <li>Email notifications to your registered email address</li>
+                                <li>Updates to our website and mobile applications</li>
+                                <li>Account statements and other communications</li>
+                                <li>Direct mail notifications when required by law</li>
+                            </ul>
+                            
+                            <p class="text-gray-600">
+                                Current fee schedules are available on our website and through your online banking portal. 
+                                You are responsible for reviewing fee changes and continuing to use our services constitutes 
+                                acceptance of any fee modifications.
+                            </p>
+                        </div>
+
+                        <!-- Prohibited Activities -->
+                        <div id="prohibited" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Prohibited Activities</h2>
+                            <p class="text-gray-600 mb-4">
+                                You agree not to engage in any of the following prohibited activities while using our services:
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-navy mb-3">Illegal Activities</h4>
+                                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                                        <li>Money laundering or terrorist financing</li>
+                                        <li>Fraudulent or deceptive practices</li>
+                                        <li>Violation of any applicable laws or regulations</li>
+                                        <li>Financing of illegal activities</li>
+                                        <li>Sanctions violations</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-navy mb-3">System Abuse</h4>
+                                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                                        <li>Unauthorized access to systems or data</li>
+                                        <li>Introduction of viruses or malicious code</li>
+                                        <li>Reverse engineering or decompiling</li>
+                                        <li>Automated data collection or scraping</li>
+                                        <li>Circumvention of security measures</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-600 mt-6">
+                                Violation of these prohibited activities may result in immediate termination of your account, 
+                                reporting to appropriate authorities, and potential legal action. We reserve the right to 
+                                investigate any suspected violations and cooperate with law enforcement as required by law.
+                            </p>
+                        </div>
+
+                        <!-- Disclaimer -->
+                        <div id="disclaimer" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Disclaimer of Warranties</h2>
+                            <p class="text-gray-600 mb-4">
+                                Vanstra Capital provides its services on an "as is" and "as available" basis. We make no 
+                                representations or warranties of any kind, express or implied, regarding the operation of 
+                                our services or the information, content, materials, or products included therein.
+                            </p>
+                            
+                            <p class="text-gray-600 mb-4">
+                                To the fullest extent permitted by applicable law, we disclaim all warranties, express or 
+                                implied, including but not limited to:
+                            </p>
+                            
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2 ml-4">
+                                <li>Implied warranties of merchantability and fitness for a particular purpose</li>
+                                <li>Warranties of title and non-infringement</li>
+                                <li>Warranties regarding accuracy, completeness, or reliability of information</li>
+                                <li>Warranties that our services will be uninterrupted, secure, or error-free</li>
+                                <li>Warranties regarding the availability or performance of third-party services</li>
+                            </ul>
+                            
+                            <p class="text-gray-600">
+                                You acknowledge that your use of our services is at your sole risk. We do not warrant that 
+                                our services will meet your requirements or that any defects will be corrected.
+                            </p>
+                        </div>
+
+                        <!-- Limitation of Liability -->
+                        <div id="limitation" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Limitation of Liability</h2>
+                            <p class="text-gray-600 mb-4">
+                                To the fullest extent permitted by applicable law, Vanstra Capital and its affiliates, 
+                                officers, directors, employees, agents, and licensors shall not be liable for any indirect, 
+                                incidental, special, consequential, or punitive damages, including but not limited to:
+                            </p>
+                            
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2 ml-4">
+                                <li>Loss of profits, revenue, or data</li>
+                                <li>Business interruption or loss of business opportunity</li>
+                                <li>Unauthorized access to or alteration of your transmissions or data</li>
+                                <li>Statements or conduct of any third party on our services</li>
+                                <li>Any other matter relating to our services</li>
+                            </ul>
+                            
+                            <p class="text-gray-600 mb-4">
+                                In no event shall our total liability to you for all damages, losses, and causes of action 
+                                exceed the amount paid by you, if any, for accessing our services in the twelve (12) months 
+                                preceding the claim, or one hundred dollars ($100), whichever is greater.
+                            </p>
+                            
+                            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-yellow-600 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-semibold text-yellow-900 mb-1">Important Limitation</h4>
+                                        <p class="text-yellow-800 text-sm">Some jurisdictions do not allow the exclusion or limitation of certain damages. In such cases, our liability will be limited to the maximum extent permitted by law.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Indemnification -->
+                        <div id="indemnification" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Indemnification</h2>
+                            <p class="text-gray-600 mb-4">
+                                You agree to indemnify, defend, and hold harmless Vanstra Capital and its affiliates, 
+                                officers, directors, employees, agents, and licensors from and against any and all claims, 
+                                demands, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) 
+                                arising from:
+                            </p>
+                            
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2 ml-4">
+                                <li>Your use of our services</li>
+                                <li>Your violation of these Terms of Service</li>
+                                <li>Your violation of any rights of another person or entity</li>
+                                <li>Your violation of any applicable laws or regulations</li>
+                                <li>Any content you submit, post, or transmit through our services</li>
+                            </ul>
+                            
+                            <p class="text-gray-600">
+                                We reserve the right, at our own expense, to assume the exclusive defense and control of any 
+                                matter otherwise subject to indemnification by you, and you agree to cooperate with our 
+                                defense of such claims.
+                            </p>
+                        </div>
+
+                        <!-- Termination -->
+                        <div id="termination" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Termination</h2>
+                            <p class="text-gray-600 mb-4">
+                                We may terminate or suspend your account and access to our services at any time, 
+                                with or without notice, for any reason, including but not limited to:
+                            </p>
+                            
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-2 ml-4">
+                                <li>Breach of these Terms of Service</li>
+                                <li>Violation of applicable laws or regulations</li>
+                                <li>Suspicious or fraudulent activity</li>
+                                <li>Non-payment of fees or charges</li>
+                                <li>Inactivity for an extended period</li>
+                                <li>Request by law enforcement or regulatory agencies</li>
+                            </ul>
+                            
+                            <h3 class="text-lg font-semibold text-navy mb-3">Effect of Termination</h3>
+                            <p class="text-gray-600 mb-4">
+                                Upon termination of your account:
+                            </p>
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-1 ml-4">
+                                <li>Your right to use our services will immediately cease</li>
+                                <li>We may delete your account and all related information</li>
+                                <li>Any outstanding fees or charges become immediately due</li>
+                                <li>Provisions that should survive termination will remain in effect</li>
+                            </ul>
+                            
+                            <p class="text-gray-600">
+                                You may terminate your account at any time by contacting customer service. Upon termination, 
+                                you remain liable for all obligations incurred prior to termination.
+                            </p>
+                        </div>
+
+                        <!-- Governing Law -->
+                        <div id="governing-law" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Governing Law</h2>
+                            <p class="text-gray-600 mb-4">
+                                These Terms of Service and any dispute arising from or related to them shall be governed by 
+                                and construed in accordance with the laws of the State of New York, without regard to its 
+                                conflict of law provisions.
+                            </p>
+                            
+                            <p class="text-gray-600 mb-4">
+                                You agree that any legal action or proceeding between you and Vanstra Capital related to these 
+                                terms shall be brought exclusively in the federal or state courts located in New York County, 
+                                New York, and you consent to the personal jurisdiction and venue of such courts.
+                            </p>
+                            
+                            <p class="text-gray-600">
+                                If any provision of these Terms of Service is held to be invalid or unenforceable, such provision 
+                                shall be struck and the remaining provisions shall be enforced to the fullest extent permitted by law.
+                            </p>
+                        </div>
+
+                        <!-- Changes -->
+                        <div id="changes" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Changes to Terms</h2>
+                            <p class="text-gray-600 mb-4">
+                                We reserve the right to modify these Terms of Service at any time. When we make changes, we will:
+                            </p>
+                            
+                            <ul class="list-disc list-inside text-gray-600 mb-6 space-y-1 ml-4">
+                                <li>Update the "Last updated" date at the top of these terms</li>
+                                <li>Provide notice through our services or via email for material changes</li>
+                                <li>Post the updated terms on our website</li>
+                                <li>Obtain your consent for changes that significantly affect your rights</li>
+                            </ul>
+                            
+                            <p class="text-gray-600">
+                                Your continued use of our services after any changes to these terms constitutes your acceptance 
+                                of those changes. We encourage you to review these terms periodically to stay informed of any updates.
+                            </p>
+                        </div>
+
+                        <!-- Contact -->
+                        <div id="contact" class="terms-section animate-fade-in">
+                            <h2 class="text-2xl font-serif font-bold text-navy mb-6">Contact Information</h2>
+                            <p class="text-gray-600 mb-6">
+                                If you have questions about these Terms of Service or need to contact us for any reason related 
+                                to our services, please use the following contact information:
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold text-navy mb-3">Legal Department</h4>
+                                    <p class="text-gray-600 mb-2">Vanstra Capital Legal Team</p>
+                                    <p class="text-gray-600 mb-2">123 Wall Street, Suite 2500</p>
+                                    <p class="text-gray-600 mb-2">New York, NY 10005</p>
+                                    <p class="text-gray-600">Email: legal@vanstracapital.com</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-navy mb-3">Customer Support</h4>
+                                    <p class="text-gray-600 mb-2">Phone: 1-800-VANSTRA</p>
+                                    <p class="text-gray-600 mb-2">Email: support@vanstracapital.com</p>
+                                    <p class="text-gray-600 mb-2">Available 24/7 for urgent matters</p>
+                                    <p class="text-gray-600">Live Chat: Available during business hours</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-6">
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-semibold text-green-900 mb-1">Legal Notice</h4>
+                                        <p class="text-green-800 text-sm">By using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <img src="resources/logo-primary.svg" alt="Vanstra Capital" class="h-10 w-auto">
+                        <span class="ml-3 text-xl font-serif font-bold">Vanstra Capital</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        Premium online banking and wealth management services designed for the modern financial landscape. 
+                        Security, innovation, and excellence in every transaction.
+                    </p>
+                    <div class="text-sm text-gray-400">
+                        <p>© 2025 Vanstra Capital. All rights reserved.</p>
+                        <p class="mt-2">Member FDIC. Equal Housing Lender.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Products</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="products.html" class="hover:text-white transition-colors">Personal Banking</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">Business Accounts</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">Wealth Management</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">Investment Services</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="support.html" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Terms page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeScrollAnimations();
+            initializeTermsNav();
+        });
+        
+        // Initialize scroll animations
+        function initializeScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.animate-fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Initialize terms navigation
+        function initializeTermsNav() {
+            const navLinks = document.querySelectorAll('.terms-nav a');
+            const sections = document.querySelectorAll('.terms-section');
+            
+            // Smooth scrolling for navigation links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Update active navigation item on scroll
+            window.addEventListener('scroll', function() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (window.pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+    </script>
+    
+    <script src="main.js"></script>
+</body>
+</html>

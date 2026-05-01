@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Vanstra Capital</title>
+    <meta name="description" content="Vanstra Capital Admin Login - Secure access to administrative panel.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --midnight-navy: #041225;
+            --deep-slate: #0B2A3F;
+            --gold-accent: #C89A3A;
+            --soft-white: #F7F8FA;
+            --gray: #8B96A3;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--soft-white);
+            color: var(--midnight-navy);
+        }
+        
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gold-accent {
+            color: var(--gold-accent);
+        }
+        
+        .bg-gold {
+            background-color: var(--gold-accent);
+        }
+        
+        .text-navy {
+            color: var(--midnight-navy);
+        }
+        
+        .bg-navy {
+            background-color: var(--midnight-navy);
+        }
+        
+        .login-container {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: var(--gold-accent);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(200, 154, 58, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-white">
+    <div class="login-container rounded-2xl p-8 max-w-md w-full mx-4">
+        <div class="text-center mb-8">
+            <img src="resources/logo-primary.svg" alt="Vanstra Capital" class="h-12 w-auto mx-auto mb-4">
+            <h1 class="text-3xl font-serif font-bold text-navy mb-2">Admin Login</h1>
+            <p class="text-gray-600">Secure Administrative Access</p>
+        </div>
+        
+        <form id="adminLoginForm" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                <input type="text" id="username" name="username" required 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-accent focus:border-transparent"
+                       placeholder="Enter admin username">
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <input type="password" id="password" name="password" required 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-accent focus:border-transparent"
+                       placeholder="Enter admin password">
+            </div>
+            
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-gold-accent focus:ring-gold-accent border-gray-300 rounded">
+                    <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                </div>
+                <a href="#" class="text-sm text-gold-accent hover:text-opacity-80">Forgot password?</a>
+            </div>
+            
+            <button type="submit" class="w-full btn-primary py-3 px-4 rounded-lg font-semibold">
+                Sign In to Admin Panel
+            </button>
+        </form>
+        
+        <div class="mt-6 text-center">
+            <a href="index.html" class="text-sm text-gray-600 hover:text-gold-accent transition-colors">
+                ← Return to Vanstra Capital
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple admin authentication (for demo purposes)
+            if (username === 'admin' && password === 'admin123') {
+                // Store admin session
+                localStorage.setItem('adminSession', JSON.stringify({
+                    username: username,
+                    loginTime: new Date().toISOString()
+                }));
+                
+                // Redirect to admin panel
+                window.location.href = 'admin.html';
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

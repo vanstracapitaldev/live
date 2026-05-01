@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login - Vanstra Bank</title>
+    <meta name="description" content="Secure login to Vanstra Bank. Access your accounts with your email and password.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #041225 0%, #0B2A3F 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        
+        .logo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo-img {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #C89A3A;
+            box-shadow: 0 0 0 3px rgba(200, 154, 58, 0.1);
+        }
+        
+        .form-input.error {
+            border-color: #EF4444;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 1rem;
+            background: #C89A3A;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #B88A2A;
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            background: #FEE2E2;
+            border: 1px solid #FECACA;
+            color: #991B1B;
+            padding: 0.875rem 1rem;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .forgot-link {
+            text-align: right;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .forgot-link a {
+            font-size: 14px;
+            color: #C89A3A;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            color: #6B7280;
+            font-size: 13px;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6B7280;
+            font-size: 14px;
+        }
+        
+        .signup-link a {
+            color: #C89A3A;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .pin-notice {
+            background: #FEF3C7;
+            border: 1px solid #FCD34D;
+            border-radius: 10px;
+            padding: 0.875rem 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .pin-notice-icon {
+            color: #D97706;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+        
+        .pin-notice-text {
+            font-size: 13px;
+            color: #92400E;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 1.5rem;
+            }
+            
+            .logo-img {
+                width: 56px;
+                height: 56px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <img src="logo-v.png" alt="Vanstra Bank" class="logo-img">
+            <h1 class="text-white text-2xl font-bold mb-1">Vanstra Bank</h1>
+            <p class="text-gray-400 text-sm">Secure Banking, Simplified</p>
+        </div>
+        
+        <div class="login-card">
+            <h2 class="text-xl font-bold text-gray-900 mb-1">Welcome Back</h2>
+            <p class="text-gray-500 text-sm mb-4">Sign in to access your account</p>
+            
+            <div class="pin-notice">
+                <svg class="pin-notice-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <p class="pin-notice-text">
+                    <strong>Important:</strong> Use your <strong>login password</strong> to sign in. Your 4-digit transaction PIN is only used for approving money transfers.
+                </p>
+            </div>
+            
+            <div id="errorMessage" class="error-message"></div>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="you@example.com"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Login Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                
+                <div class="forgot-link">
+                    <a href="#" onclick="showForgotPassword()">Forgot password?</a>
+                </div>
+                
+                <button type="submit" id="loginBtn" class="btn-primary">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="security-badge">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+                <span>Bank-grade security encryption</span>
+            </div>
+        </div>
+        
+        <p class="signup-link">
+            Don't have an account? <a href="signup.html">Create Account</a>
+        </p>
+    </div>
+    
+    <script src="bank-core-v2.js"></script>
+    <script>
+        // Check if already logged in
+        if (VanstraBank.isAuthenticated()) {
+            window.location.href = 'dashboard-v2.html';
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const errorMsg = document.getElementById('errorMessage');
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
+            errorMsg.classList.remove('show');
+            
+            setTimeout(() => {
+                // CRITICAL: Login only uses password, NEVER PIN
+                const result = VanstraBank.login(email, password);
+                
+                if (result.success) {
+                    localStorage.setItem('currentSession', result.sessionToken);
+                    window.location.href = 'dashboard-v2.html';
+                } else {
+                    errorMsg.textContent = result.error;
+                    errorMsg.classList.add('show');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Sign In';
+                }
+            }, 800);
+        }
+        
+        function showForgotPassword() {
+            alert('Password reset functionality would send a reset link to your email.');
+        }
+    </script>
+</body>
+</html>
