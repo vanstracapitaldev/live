@@ -269,11 +269,6 @@
     
     <script src="bank-core-v2.js"></script>
     <script>
-        // Check if already logged in
-        if (VanstraBank.isAuthenticated()) {
-            window.location.href = 'dashboard-v2.html';
-        }
-        
         function handleLogin(event) {
             event.preventDefault();
             
@@ -292,7 +287,7 @@
                 
                 if (result.success) {
                     localStorage.setItem('currentSession', result.sessionToken);
-                    window.location.href = 'dashboard-v2.html';
+                    window.location.href = 'dashboard.html';
                 } else {
                     errorMsg.textContent = result.error;
                     errorMsg.classList.add('show');
