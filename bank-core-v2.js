@@ -4,9 +4,12 @@
 (function() {
     'use strict';
 
-    if (typeof window.VanstraBank !== 'undefined') {
-        return; // Already loaded
-    }
+    console.log('bank-core-v2.js loading...');
+
+    // if (typeof window.VanstraBank !== 'undefined') {
+    //     console.log('VanstraBank already defined, skipping load');
+    //     return; // Already loaded
+    // }
 
     // Event system for real-time updates
     const eventListeners = {};
@@ -258,6 +261,7 @@
     }
 
     function updateProfile(profileData) {
+        console.log('updateProfile called with:', profileData);
         const sessionToken = localStorage.getItem('currentSession');
         if (!sessionToken) return { success: false, error: 'Not authenticated' };
 
@@ -608,4 +612,6 @@
         formatDateTime,
         hashString
     };
+
+    console.log('VanstraBank loaded:', typeof window.VanstraBank.updateProfile);
 })();
