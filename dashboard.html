@@ -2426,9 +2426,9 @@
                 </button>
 
                 <div class="mb-2">
-                    <div class="text-4xl font-bold text-slate-900 mb-1">€0.00</div>
-                    <div class="text-slate-600 text-sm">To Recipient Name</div>
-                    <div class="text-slate-500 text-xs">Date & Time</div>
+                    <div id="receiptAmount" class="text-4xl font-bold text-slate-900 mb-1">€0.00</div>
+                    <div id="receiptRecipient" class="text-slate-600 text-sm">To Recipient Name</div>
+                    <div id="receiptDateTime" class="text-slate-500 text-xs">Date & Time</div>
                 </div>
             </div>
 
@@ -2448,7 +2448,7 @@
                         <div class="ml-4 flex-1">
                             <div class="font-semibold text-slate-900">Initiated</div>
                             <div class="text-slate-600 text-sm">Transaction started</div>
-                            <div class="text-slate-500 text-xs mt-1">2 hours ago</div>
+                            <div id="initiatedTime" class="text-slate-500 text-xs mt-1">2 hours ago</div>
                         </div>
                     </div>
 
@@ -2462,7 +2462,7 @@
                         <div class="ml-4 flex-1">
                             <div class="font-semibold text-slate-900">In Progress</div>
                             <div class="text-slate-600 text-sm">Your transaction is on its way</div>
-                            <div class="text-slate-500 text-xs mt-1">1 hour ago</div>
+                            <div id="progressTime" class="text-slate-500 text-xs mt-1">1 hour ago</div>
                         </div>
                     </div>
 
@@ -2476,7 +2476,7 @@
                         <div class="ml-4 flex-1">
                             <div class="font-semibold text-slate-900">Completed</div>
                             <div class="text-slate-600 text-sm">Transaction successful</div>
-                            <div class="text-slate-500 text-xs mt-1">Just now</div>
+                            <div id="completedTime" class="text-slate-500 text-xs mt-1">Just now</div>
                         </div>
                     </div>
                 </div>
@@ -2504,7 +2504,7 @@
                         </div>
                         <div>
                             <div class="text-slate-900 font-medium">To</div>
-                            <div class="text-slate-600 text-sm">Recipient Name</div>
+                            <div id="recipientInfo" class="text-slate-600 text-sm">Recipient Name</div>
                         </div>
                     </div>
                 </div>
@@ -2513,7 +2513,7 @@
                 <div class="flex items-center justify-between py-3 border-b border-slate-200">
                     <div class="flex-1">
                         <div class="text-slate-900 font-medium">Description</div>
-                        <div class="text-slate-600 text-sm">Payment for services</div>
+                        <div id="transactionMemo" class="text-slate-600 text-sm">Payment for services</div>
                     </div>
                 </div>
 
@@ -2521,7 +2521,7 @@
                 <div class="flex items-center justify-between py-3 border-b border-slate-200">
                     <div class="flex-1">
                         <div class="text-slate-900 font-medium">Payment Method</div>
-                        <div class="text-slate-600 text-sm">Wire Transfer</div>
+                        <div id="paymentMethod" class="text-slate-600 text-sm">Wire Transfer</div>
                     </div>
                 </div>
 
@@ -2530,7 +2530,7 @@
                     <div class="flex-1">
                         <div class="text-slate-900 font-medium">Account Details</div>
                         <div class="flex items-center justify-between">
-                            <div class="text-slate-600 text-sm font-mono">****1234</div>
+                            <div id="accountDetails" class="text-slate-600 text-sm font-mono">****1234</div>
                             <button onclick="copyToClipboard('accountDetails')" class="p-1 text-slate-400 hover:text-slate-600 transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -2545,7 +2545,7 @@
                     <div class="flex-1">
                         <div class="text-slate-900 font-medium">Reference Number</div>
                         <div class="flex items-center justify-between">
-                            <div class="text-slate-600 text-sm font-mono">TXN-123456789</div>
+                            <div id="referenceNumber" class="text-slate-600 text-sm font-mono">TXN-123456789</div>
                             <button onclick="copyToClipboard('referenceNumber')" class="p-1 text-slate-400 hover:text-slate-600 transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
