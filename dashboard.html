@@ -2414,29 +2414,153 @@
     </div>
 
     <!-- Receipt Modal -->
-    <div id="receiptModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'receiptModal')">
-        <div class="modal-sheet">
-            <div class="modal-header">
-                <h3 class="modal-title">Transaction Receipt</h3>
-                <button class="modal-close" onclick="closeModal('receiptModal')">
-                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    <!-- Transaction Receipt Modal -->
+    <div id="receiptModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" onclick="closeReceiptModal()">
+        <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <!-- Hero Header -->
+            <div class="bg-gradient-to-br from-slate-50 to-slate-100 p-6 text-center relative">
+                <button onclick="shareReceipt()" class="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-colors">
+                    <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
                     </svg>
                 </button>
-            </div>
-            <div class="modal-body">
-                <div id="receiptContent"></div>
-                
-                <div class="receipt-actions flex gap-2 mt-4 justify-center">
-                    <button onclick="shareReceipt()" class="btn btn-primary btn-icon" title="Share receipt" aria-label="Share receipt">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16V3"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7l4-4 4 4"/>
-                        </svg>
-                        <span class="sr-only">Share receipt</span>
-                    </button>
+
+                <div class="mb-2">
+                    <div class="text-4xl font-bold text-slate-900 mb-1">€0.00</div>
+                    <div class="text-slate-600 text-sm">To Recipient Name</div>
+                    <div class="text-slate-500 text-xs">Date & Time</div>
                 </div>
+            </div>
+
+            <!-- Transaction Timeline -->
+            <div class="px-6 py-4 bg-slate-50">
+                <div class="relative">
+                    <!-- Timeline line -->
+                    <div class="absolute left-6 top-8 bottom-8 w-0.5 bg-slate-200"></div>
+
+                    <!-- Stage 1: Initiated -->
+                    <div class="flex items-start mb-6 relative">
+                        <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center z-10">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <div class="font-semibold text-slate-900">Initiated</div>
+                            <div class="text-slate-600 text-sm">Transaction started</div>
+                            <div class="text-slate-500 text-xs mt-1">2 hours ago</div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 2: In Progress -->
+                    <div class="flex items-start mb-6 relative">
+                        <div class="flex-shrink-0 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center z-10">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <div class="font-semibold text-slate-900">In Progress</div>
+                            <div class="text-slate-600 text-sm">Your transaction is on its way</div>
+                            <div class="text-slate-500 text-xs mt-1">1 hour ago</div>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3: Completed -->
+                    <div class="flex items-start relative">
+                        <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center z-10">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <div class="font-semibold text-slate-900">Completed</div>
+                            <div class="text-slate-600 text-sm">Transaction successful</div>
+                            <div class="text-slate-500 text-xs mt-1">Just now</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Action -->
+            <div class="px-6 py-3 bg-white border-t border-slate-200">
+                <button onclick="viewReceiptDetails()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    View Receipt Details
+                </button>
+            </div>
+
+            <!-- Metadata Grid -->
+            <div class="px-6 py-4 space-y-4">
+                <!-- Recipient/To -->
+                <div class="flex items-center justify-between py-3 border-b border-slate-200">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center">
+                            <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-slate-900 font-medium">To</div>
+                            <div class="text-slate-600 text-sm">Recipient Name</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description/Memo -->
+                <div class="flex items-center justify-between py-3 border-b border-slate-200">
+                    <div class="flex-1">
+                        <div class="text-slate-900 font-medium">Description</div>
+                        <div class="text-slate-600 text-sm">Payment for services</div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="flex items-center justify-between py-3 border-b border-slate-200">
+                    <div class="flex-1">
+                        <div class="text-slate-900 font-medium">Payment Method</div>
+                        <div class="text-slate-600 text-sm">Wire Transfer</div>
+                    </div>
+                </div>
+
+                <!-- Account Details -->
+                <div class="flex items-center justify-between py-3 border-b border-slate-200">
+                    <div class="flex-1">
+                        <div class="text-slate-900 font-medium">Account Details</div>
+                        <div class="flex items-center justify-between">
+                            <div class="text-slate-600 text-sm font-mono">****1234</div>
+                            <button onclick="copyToClipboard('accountDetails')" class="p-1 text-slate-400 hover:text-slate-600 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reference Number -->
+                <div class="flex items-center justify-between py-3">
+                    <div class="flex-1">
+                        <div class="text-slate-900 font-medium">Reference Number</div>
+                        <div class="flex items-center justify-between">
+                            <div class="text-slate-600 text-sm font-mono">TXN-123456789</div>
+                            <button onclick="copyToClipboard('referenceNumber')" class="p-1 text-slate-400 hover:text-slate-600 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Close button -->
+            <div class="p-6 pt-0">
+                <button onclick="closeReceiptModal()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 px-4 rounded-xl transition-colors">
+                    Close
+                </button>
             </div>
         </div>
     </div>
@@ -3615,110 +3739,87 @@
         function showReceipt(transactionId) {
             const tx = currentUser.transactions.find(t => t.id === transactionId);
             if (!tx || tx.internal) return;
-            
+
             currentReceipt = tx;
+            updateReceiptDisplay(tx);
+            document.getElementById('receiptModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateReceiptDisplay(tx) {
             const isIncome = tx.amount > 0;
-            const transactionIcon = getTransactionIcon(tx);
-            
-            document.getElementById('receiptContent').innerHTML = `
-                <div class="receipt">
-                    <div class="receipt-header">
-                        <div class="receipt-logo">${transactionIcon}</div>
-                        <div class="receipt-title">${tx.type || 'Transaction'}</div>
-                        <div class="receipt-amount ${isIncome ? 'text-green-600' : 'text-red-600'}">
-                            ${isIncome ? '+' : '-'}${VanstraBank.formatCurrency(Math.abs(tx.amount))}
-                        </div>
-                        <div class="receipt-description">${tx.description}</div>
-                    </div>
-                    
-                    <div class="receipt-body">
-                        <div class="receipt-section">
-                            <div class="receipt-section-title">Transaction Details</div>
-                            <div class="receipt-row">
-                                <span class="receipt-label">Date & Time</span>
-                                <span class="receipt-value">${VanstraBank.formatDateTime(tx.timestamp)}</span>
-                            </div>
-                            <div class="receipt-row">
-                                <span class="receipt-label">Status</span>
-                                <span class="receipt-value">
-                                    <span class="receipt-status ${tx.status}">${tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}</span>
-                                </span>
-                            </div>
-                            <div class="receipt-row">
-                                <span class="receipt-label">Reference</span>
-                                <span class="receipt-value" style="font-family: monospace; font-size: 12px;">${tx.reference}</span>
-                            </div>
-                        </div>
-                        
-                        <div class="receipt-section">
-                            <div class="receipt-section-title">Party Details</div>
-                            <div class="receipt-row">
-                                <span class="receipt-label">${isIncome ? 'From' : 'To'}</span>
-                                <span class="receipt-value">${tx.recipientName || 'N/A'}</span>
-                            </div>
-                            ${tx.recipientAccount ? `
-                            <div class="receipt-row">
-                                <span class="receipt-label">Account / IBAN</span>
-                                <span class="receipt-value" style="font-family: monospace; font-size: 12px;">${tx.recipientAccount}</span>
-                            </div>
-                            ` : ''}
-                        </div>
-                        
-                        <div class="receipt-section">
-                            <div class="receipt-section-title">Transaction ID</div>
-                            <div class="receipt-row">
-                                <span class="receipt-value" style="font-family: monospace; font-size: 12px; width: 100%; word-break: break-all;">${tx.id}</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="receipt-footer">
-                        Vanstra Capital Banking • Your Financial Partner
-                    </div>
-                </div>
-            `;
-            
-            openModal('receiptModal');
+
+            // Hero Header
+            document.getElementById('receiptAmount').textContent = VanstraBank.formatCurrency(Math.abs(tx.amount));
+            document.getElementById('receiptRecipient').textContent = isIncome ? `From ${tx.recipientName}` : `To ${tx.recipientName}`;
+            document.getElementById('receiptDateTime').textContent = VanstraBank.formatDateTime(tx.timestamp);
+
+            // Timeline
+            const now = new Date();
+            const txTime = new Date(tx.timestamp);
+            const timeDiff = now - txTime;
+
+            document.getElementById('initiatedTime').textContent = formatTimeAgo(txTime);
+            document.getElementById('progressTime').textContent = formatTimeAgo(new Date(txTime.getTime() + 60000)); // 1 min later
+            document.getElementById('completedTime').textContent = formatTimeAgo(txTime);
+
+            // Metadata
+            document.getElementById('recipientInfo').textContent = tx.recipientName;
+            document.getElementById('transactionMemo').textContent = tx.description;
+            document.getElementById('paymentMethod').textContent = 'Wire Transfer';
+            document.getElementById('accountDetails').textContent = tx.recipientAccount || '****1234';
+            document.getElementById('referenceNumber').textContent = tx.reference || tx.id;
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receiptModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function viewReceiptDetails() {
+            // Could expand to show more detailed receipt information
+            alert('Detailed receipt view - coming soon!');
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            copyToClipboardText(text);
+        }
+
+        function copyToClipboardText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Could show a toast notification here
+                console.log('Copied to clipboard:', text);
+            });
+        }
+
+        function formatTimeAgo(date) {
+            const now = new Date();
+            const diff = now - date;
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+            if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            return `${days} day${days > 1 ? 's' : ''} ago`;
         }
 
         function shareReceipt() {
             if (!currentReceipt) return;
 
-            const text = createReceiptText(currentReceipt);
-            const title = 'Receipt - ' + currentReceipt.id;
+            const shareText = createReceiptText(currentReceipt);
 
             if (navigator.share) {
                 navigator.share({
-                    title: title,
-                    text: text
-                }).then(() => {
-                    showToast('Receipt shared', 'success');
-                }).catch(err => {
-                    // User may cancel or an error occurred
-                    console.warn('Share failed', err);
-                    showToast('Unable to share receipt', 'error');
+                    title: 'Transaction Receipt',
+                    text: shareText
                 });
-                return;
-            }
-
-            // Fallback: copy to clipboard so user can paste into a message
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast('Receipt copied to clipboard — paste to share', 'success');
-                }).catch(() => {
-                    showToast('Unable to copy receipt to clipboard', 'error');
-                });
-                return;
-            }
-
-            // Last-resort: open a simple dialog with the text selected
-            const popup = window.open('', '_blank', 'width=600,height=600');
-            if (popup) {
-                popup.document.write('<pre style="white-space: pre-wrap; font-family: monospace;">' + escapeHtml(text) + '<\/pre>');
-                popup.document.title = title;
-                showToast('Receipt opened in new tab — copy to share', 'success');
             } else {
-                showToast('Unable to open share window', 'error');
+                copyToClipboardText(shareText);
+                alert('Receipt details copied to clipboard!');
             }
         }
 
