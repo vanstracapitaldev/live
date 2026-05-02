@@ -565,6 +565,36 @@
         <div class="card-header">
             <h2 class="card-title">Settings</h2>
         </div>
+        <div class="menu-item" onclick="openCurrencyModal()">
+            <div class="menu-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                </svg>
+            </div>
+            <div class="menu-content">
+                <div class="menu-title">Currency</div>
+                <div class="menu-subtitle" id="currentCurrency">EUR</div>
+            </div>
+            <svg class="menu-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </div>
+        
+        <div class="menu-item" onclick="openLanguageModal()">
+            <div class="menu-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.02 18.02 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                </svg>
+            </div>
+            <div class="menu-content">
+                <div class="menu-title">Language</div>
+                <div class="menu-subtitle" id="currentLanguage">English</div>
+            </div>
+            <svg class="menu-arrow" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </div>
+        
         <div class="menu-item" onclick="showToast('Security settings coming soon')">
             <div class="menu-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -691,6 +721,130 @@
         </div>
     </div>
 
+    <!-- Currency Modal -->
+    <div id="currencyModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'currencyModal')">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <h3 class="modal-title">Select Currency</h3>
+                <button class="modal-close" onclick="closeModal('currencyModal')">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="space-y-2">
+                    <button onclick="selectCurrency('EUR')" class="currency-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">€</span>
+                            <span class="font-medium">Euro (EUR)</span>
+                        </div>
+                        <div id="eurCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button onclick="selectCurrency('USD')" class="currency-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">$</span>
+                            <span class="font-medium">US Dollar (USD)</span>
+                        </div>
+                        <div id="usdCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button onclick="selectCurrency('GBP')" class="currency-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">£</span>
+                            <span class="font-medium">British Pound (GBP)</span>
+                        </div>
+                        <div id="gbpCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button onclick="selectCurrency('CHF')" class="currency-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">Fr</span>
+                            <span class="font-medium">Swiss Franc (CHF)</span>
+                        </div>
+                        <div id="chfCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Language Modal -->
+    <div id="languageModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'languageModal')">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <h3 class="modal-title">Select Language</h3>
+                <button class="modal-close" onclick="closeModal('languageModal')">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="space-y-2">
+                    <button onclick="selectLanguage('en')" class="language-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">🇺🇸</span>
+                            <span class="font-medium">English</span>
+                        </div>
+                        <div id="enCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button onclick="selectLanguage('de')" class="language-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">🇩🇪</span>
+                            <span class="font-medium">Deutsch</span>
+                        </div>
+                        <div id="deCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button onclick="selectLanguage('fr')" class="language-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">🇫🇷</span>
+                            <span class="font-medium">Français</span>
+                        </div>
+                        <div id="frCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <button onclick="selectLanguage('es')" class="language-option w-full p-4 bg-gray-50 rounded-xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">🇪🇸</span>
+                            <span class="font-medium">Español</span>
+                        </div>
+                        <div id="esCheck" class="hidden">
+                            <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast -->
     <div id="toast" class="toast"></div>
 
@@ -741,6 +895,10 @@
             document.getElementById('infoJoined').textContent = joinedDate.toLocaleDateString('en-US', { 
                 month: 'long', day: 'numeric', year: 'numeric' 
             });
+
+            // Update preferences
+            updateCurrencyDisplay(currentUser.currency || 'EUR');
+            updateLanguageDisplay(currentUser.language || 'en');
         }
 
         // Modal functions
@@ -858,6 +1016,74 @@
                 console.error('Error removing avatar:', error);
                 showToast('Failed to remove photo', 'error');
             }
+        }
+
+        // Currency functions
+        function openCurrencyModal() {
+            updateCurrencyDisplay(currentUser.currency || 'EUR');
+            openModal('currencyModal');
+        }
+
+        function selectCurrency(currency) {
+            const result = VanstraBank.updateProfile({ currency });
+            if (result.success) {
+                currentUser = result.user;
+                updateCurrencyDisplay(currency);
+                closeModal('currencyModal');
+                showToast('Currency updated successfully');
+            } else {
+                showToast('Failed to update currency', 'error');
+            }
+        }
+
+        function updateCurrencyDisplay(currency) {
+            const currencyNames = {
+                'EUR': 'EUR',
+                'USD': 'USD',
+                'GBP': 'GBP',
+                'CHF': 'CHF'
+            };
+            document.getElementById('currentCurrency').textContent = currencyNames[currency] || 'EUR';
+            
+            // Update checkmarks
+            document.getElementById('eurCheck').classList.toggle('hidden', currency !== 'EUR');
+            document.getElementById('usdCheck').classList.toggle('hidden', currency !== 'USD');
+            document.getElementById('gbpCheck').classList.toggle('hidden', currency !== 'GBP');
+            document.getElementById('chfCheck').classList.toggle('hidden', currency !== 'CHF');
+        }
+
+        // Language functions
+        function openLanguageModal() {
+            updateLanguageDisplay(currentUser.language || 'en');
+            openModal('languageModal');
+        }
+
+        function selectLanguage(language) {
+            const result = VanstraBank.updateProfile({ language });
+            if (result.success) {
+                currentUser = result.user;
+                updateLanguageDisplay(language);
+                closeModal('languageModal');
+                showToast('Language updated successfully');
+            } else {
+                showToast('Failed to update language', 'error');
+            }
+        }
+
+        function updateLanguageDisplay(language) {
+            const languageNames = {
+                'en': 'English',
+                'de': 'Deutsch',
+                'fr': 'Français',
+                'es': 'Español'
+            };
+            document.getElementById('currentLanguage').textContent = languageNames[language] || 'English';
+            
+            // Update checkmarks
+            document.getElementById('enCheck').classList.toggle('hidden', language !== 'en');
+            document.getElementById('deCheck').classList.toggle('hidden', language !== 'de');
+            document.getElementById('frCheck').classList.toggle('hidden', language !== 'fr');
+            document.getElementById('esCheck').classList.toggle('hidden', language !== 'es');
         }
 
         // Logout

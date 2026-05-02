@@ -108,6 +108,7 @@
             accountType: 'Premium Checking',
             balance: 5000.00, // Starting balance
             currency: 'EUR',
+            language: 'en',
             status: 'active',
             createdAt: new Date().toISOString(),
             lastLogin: null,
@@ -230,6 +231,60 @@
 
     function isAuthenticated() {
         return getCurrentUser() !== null;
+    }
+
+    function updateAvatar(imageData) {
+        const sessionToken = localStorage.getItem('currentSession');
+        if (!sessionToken) return { success: false, error: 'Not authenticated' };
+
+        const sessions = JSON.parse(localStorage.getItem('vanstraSessions'));
+        const session = sessions[sessionToken];
+        
+        if (!session || new Date(session.expiresAt) < new Date()) {
+            localStorage.removeItem('currentSession');
+            return { success: false, error: 'Session expired' };
+        }
+
+        const users = JSON.parse(localStorage.getItem('vanstraUsers'));
+        const user = users[session.userId];
+        
+        if (!user) return { success: false, error: 'User not found' };
+
+        user.avatar = imageData;
+        users[session.userId] = user;
+        localStorage.setItem('vanstraUsers', JSON.stringify(users));
+
+        return { success: true };
+    }
+
+    function updateProfile(profileData) {
+        const sessionToken = localStorage.getItem('currentSession');
+        if (!sessionToken) return { success: false, error: 'Not authenticated' };
+
+        const sessions = JSON.parse(localStorage.getItem('vanstraSessions'));
+        const session = sessions[sessionToken];
+        
+        if (!session || new Date(session.expiresAt) < new Date()) {
+            localStorage.removeItem('currentSession');
+            return { success: false, error: 'Session expired' };
+        }
+
+        const users = JSON.parse(localStorage.getItem('vanstraUsers'));
+        const user = users[session.userId];
+        
+        if (!user) return { success: false, error: 'User not found' };
+
+        // Update allowed fields
+        if (profileData.fullName) user.fullName = profileData.fullName;
+        if (profileData.email) user.email = profileData.email;
+        if (profileData.phone) user.phone = profileData.phone;
+        if (profileData.currency) user.currency = profileData.currency;
+        if (profileData.language) user.language = profileData.language;
+
+        users[session.userId] = user;
+        localStorage.setItem('vanstraUsers', JSON.stringify(users));
+
+        return { success: true, user: sanitizeForClient(user) };
     }
 
     // ==================== TRANSACTION PIN AUTHORIZATION ====================
@@ -464,6 +519,7 @@
             accountType: user.accountType,
             balance: user.balance,
             currency: user.currency,
+            language: user.language,
             avatar: user.avatar,
             createdAt: user.createdAt,
             transactions: user.transactions || []
@@ -522,6 +578,8 @@
         logout,
         getCurrentUser,
         isAuthenticated,
+        updateAvatar,
+        updateProfile,
         
         // PIN
         verifyPin,
