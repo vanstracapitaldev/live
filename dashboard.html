@@ -2365,6 +2365,31 @@
         </div>
     </div>
 
+    <!-- Add Funds Modal -->
+    <div id="addFundsModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'addFundsModal')">
+        <div class="modal-sheet">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Funds</h3>
+                <button class="modal-close" onclick="closeModal('addFundsModal')">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addFundsForm" onsubmit="handleAddFunds(event)">
+                    <div class="form-group">
+                        <label class="form-label">Amount</label>
+                        <input type="number" id="addFundsAmount" class="form-input" placeholder="0.00" step="0.01" min="1" required>
+                        <p class="input-hint">Enter the amount you want to add to your balance.</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Add Funds</button>
+                    <button type="button" onclick="closeModal('addFundsModal')" style="width: 100%; margin-top: 0.5rem; background: #F3F4F6; color: #1F2937; border: none; border-radius: 8px; font-weight: 500; font-size: 14px; cursor: pointer;">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Pay Bill Modal -->
     <div id="payBillModal" class="modal-overlay" onclick="closeModalOnOverlay(event, 'payBillModal')">
         <div class="modal-sheet">
@@ -3908,22 +3933,51 @@
                 showToast('Please log in first', 'error');
                 return;
             }
-            
-            const fundAmount = 1000;
-            const state = JSON.parse(localStorage.getItem('vanstraState') || '{}');
-            
-            if (state.accounts && state.accounts.checking) {
-                state.accounts.checking.balance += fundAmount;
-                localStorage.setItem('vanstraState', JSON.stringify(state));
-                
-                // Update displayed balance
-                currentUser.balance = (currentUser.balance || 0) + fundAmount;
-                loadUserData();
-                
-                showToast(`✨ Balance funded with €${fundAmount.toLocaleString()}!`, 'success');
-            } else {
-                showToast('Unable to fund balance', 'error');
+            openAddFundsModal();
+        }
+
+        function openAddFundsModal() {
+            document.getElementById('addFundsForm').reset();
+            openModal('addFundsModal');
+        }
+
+        function handleAddFunds(event) {
+            event.preventDefault();
+            const amountInput = document.getElementById('addFundsAmount');
+            const amount = parseFloat(amountInput.value);
+
+            if (isNaN(amount) || amount <= 0) {
+                showToast('Please enter a valid amount.', 'error');
+                return;
             }
+
+            const depositAmount = Math.round(amount * 100) / 100;
+            const updatedTransaction = {
+                id: `tx-${Date.now()}`,
+                type: 'Deposit',
+                amount: depositAmount,
+                timestamp: new Date().toISOString(),
+                status: 'Completed',
+                recipientName: 'Vanstra Capital',
+                description: 'Manual balance top-up',
+                recipientAccount: 'Balance Top-Up',
+                reference: `DEP-${Date.now()}`
+            };
+
+            const users = JSON.parse(localStorage.getItem('vanstraUsers') || '{}');
+            if (users[currentUser.id]) {
+                users[currentUser.id].balance = (users[currentUser.id].balance || 0) + depositAmount;
+                users[currentUser.id].transactions = users[currentUser.id].transactions || [];
+                users[currentUser.id].transactions.unshift(updatedTransaction);
+                localStorage.setItem('vanstraUsers', JSON.stringify(users));
+                currentUser.balance = users[currentUser.id].balance;
+                currentUser.transactions = users[currentUser.id].transactions;
+            }
+
+            loadUserData();
+            closeModal('addFundsModal');
+            showToast(`✨ Added ${VanstraBank.formatCurrency(depositAmount)} to your balance.`, 'success');
+            showReceipt(updatedTransaction.id);
         }
     </script>
 

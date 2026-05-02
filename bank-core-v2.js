@@ -546,25 +546,61 @@
         };
     }
 
-    function formatCurrency(amount) {
-        return new Intl.NumberFormat('de-DE', {
+    function getCurrentUserPreferences() {
+        const sessionToken = localStorage.getItem('currentSession');
+        if (!sessionToken) return { currency: 'EUR', language: 'en' };
+
+        const sessions = JSON.parse(localStorage.getItem('vanstraSessions') || '{}');
+        const session = sessions[sessionToken];
+        if (!session) return { currency: 'EUR', language: 'en' };
+
+        const users = JSON.parse(localStorage.getItem('vanstraUsers') || '{}');
+        const user = users[session.userId];
+        return {
+            currency: user?.currency || 'EUR',
+            language: user?.language || 'en'
+        };
+    }
+
+    function mapLanguageToLocale(language) {
+        switch (language) {
+            case 'de': return 'de-DE';
+            case 'fr': return 'fr-FR';
+            case 'es': return 'es-ES';
+            case 'en': return 'en-US';
+            default: return 'en-US';
+        }
+    }
+
+    function formatCurrency(amount, currency, locale) {
+        const prefs = getCurrentUserPreferences();
+        const resolvedCurrency = currency || prefs.currency || 'EUR';
+        const resolvedLocale = locale || mapLanguageToLocale(prefs.language || 'en');
+
+        return new Intl.NumberFormat(resolvedLocale, {
             style: 'currency',
-            currency: 'EUR'
+            currency: resolvedCurrency,
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         }).format(amount);
     }
 
-    function formatDate(dateString) {
+    function formatDate(dateString, locale) {
+        const prefs = getCurrentUserPreferences();
+        const resolvedLocale = locale || mapLanguageToLocale(prefs.language || 'en');
         const date = new Date(dateString);
         const now = new Date();
         const diff = now - date;
-        
+
         if (diff < 86400000) return 'Today';
         if (diff < 172800000) return 'Yesterday';
-        return date.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
+        return date.toLocaleDateString(resolvedLocale, { day: 'numeric', month: 'short' });
     }
 
-    function formatDateTime(dateString) {
-        return new Date(dateString).toLocaleString('de-DE', {
+    function formatDateTime(dateString, locale) {
+        const prefs = getCurrentUserPreferences();
+        const resolvedLocale = locale || mapLanguageToLocale(prefs.language || 'en');
+        return new Date(dateString).toLocaleString(resolvedLocale, {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
